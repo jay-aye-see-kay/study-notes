@@ -13,8 +13,6 @@ unsigned getbits(unsigned x, int p, int n);
 void print_binary(unsigned int number);
 
 int main() {
-  int result, initial = 0b11111011;
-
   printf("getbits tests:\n");
   printf("[%d] - 0b11111011, p=3, n=3. Expect 0b101\n",
          getbits(0b11111011, 3, 3) == 0b101);
