@@ -4,6 +4,14 @@ fn main() {
     let nums = vec![1, 2, 3, 10, 10];
     println!("nums: {:?}", nums);
     println!("num_stats: {:?}", get_num_stats(&nums));
+
+    let s = "first".to_string();
+    println!("string before: {:?}", s);
+    println!("string after: {:?}", to_pig_latin(&s));
+    println!("\n");
+    let s = "apple".to_string();
+    println!("string before: {:?}", s);
+    println!("string after: {:?}", to_pig_latin(&s));
 }
 
 /// Given a list of integers, use a vector and return the mean (the average value), median (when
@@ -61,14 +69,21 @@ struct NumStats {
     mode: i32,
 }
 
-// /// Convert strings to pig latin. The first consonant of each word is moved to the end of the word
-// /// and “ay” is added, so “first” becomes “irst-fay.” Words that start with a vowel have “hay”
-// /// added to the end instead (“apple” becomes “apple-hay”). Keep in mind the details about UTF-8
-// /// encoding!
-// fn to_pig_latin(){}
+/// Convert strings to pig latin. The first consonant of each word is moved to the end of the word
+/// and “ay” is added, so “first” becomes “irst-fay.” Words that start with a vowel have “hay”
+/// added to the end instead (“apple” becomes “apple-hay”). Keep in mind the details about UTF-8
+/// encoding!
+fn to_pig_latin(s: &str) -> String {
+    if s.starts_with('a')
+        || s.starts_with('e')
+        || s.starts_with('i')
+        || s.starts_with('o')
+        || s.starts_with('u')
+    {
+        return format!("{}-hay", s);
+    }
 
-// /// Using a hash map and vectors, create a text interface to allow a user to add employee names to
-// /// a department in a company. For example, “Add Sally to Engineering” or “Add Amir to Sales.” Then
-// /// let the user retrieve a list of all people in a department or all people in the company by
-// /// department, sorted alphabetically.
-// fn store_employees(){}
+    let mut new_s = s.to_string();
+    let first_char = new_s.remove(0);
+    format!("{}-{}ay", new_s, first_char)
+}
