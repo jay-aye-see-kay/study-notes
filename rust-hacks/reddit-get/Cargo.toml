@@ -1,0 +1,11 @@
+[package]
+name = "reddit-get"
+version = "0.1.0"
+authors = ["Jack Rose <user@jackrose.co.nz>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+reqwest = { version = "0.10.8", features = ["blocking", "json"] }
+serde = { version = "1.0.116", features = ["derive"] }
