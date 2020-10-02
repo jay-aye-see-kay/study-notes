@@ -1,5 +1,6 @@
 use reqwest::blocking;
 use serde::Deserialize;
+use termion::{color, style};
 
 #[derive(Debug, Deserialize)]
 pub struct RResponse {
@@ -39,12 +40,38 @@ impl std::fmt::Display for RPost {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "{title} (from: /r/{sub} /u/{user})\n{url}",
-            title = &self.data.title,
-            sub = &self.data.subreddit,
-            user = &self.data.author,
-            url = &self.data.url
+            "{title} (from: /r/{sub} /u/{author})\n{url}",
+            title = self.data.title,
+            sub = self.data.subreddit,
+            author = self.data.author,
+            url = self.data.url
         )
+    }
+}
+
+impl RPost {
+    pub fn term_print(&self, index: usize) {
+        print!(
+            "{blue}/r/{sub}{reset}\n",
+            blue = color::Fg(color::Blue),
+            sub = self.data.subreddit,
+            reset = style::Reset
+        );
+        print!("{}:", index);
+        print!(
+            " {red}{bold}{title}{reset}",
+            red=color::Fg(color::Red),
+            bold=style::Bold,
+            title=self.data.title,
+            reset=style::Reset
+        );
+        print!(
+            " {green}/u/{author}{reset}\n",
+            green = color::Fg(color::Green),
+            author = self.data.author,
+            reset = style::Reset
+        );
+        print!("{}\n", self.data.url);
     }
 }
 
